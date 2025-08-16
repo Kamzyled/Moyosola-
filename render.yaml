@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: moyosola-server
+    env: node
+    plan: free
+    buildCommand: "cd server && npm install"
+    startCommand: "cd server && npm run start"
+    autoDeploy: true
+    envVars:
+      - key: CORS_ORIGIN
+        value: "*"
+
+  - type: web
+    name: moyosola-client
+    env: node
+    plan: free
+    buildCommand: "cd client && npm install && npm run build"
+    startCommand: "cd client && npm run preview -- --host 0.0.0.0 --port $PORT"
+    autoDeploy: true
+    envVars:
+      - key: VITE_SERVER_URL
+        sync: false
